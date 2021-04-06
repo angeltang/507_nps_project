@@ -290,6 +290,15 @@ def get_nearby_places(site_object):
     return results_json
 
 def print_header(state):
+    ''' prints a state-specific header
+    Parameters
+    ----------
+    state: string
+        The state to print header for
+    Returns
+    -------
+    None
+    '''
     header = f'''
 -----------------------------------------
 List of National Sites in {state.title()}
@@ -299,18 +308,50 @@ List of National Sites in {state.title()}
     return
 
 def print_sites(sites):
+    ''' print sites
+    Parameters
+    ----------
+    sites: list
+        A list of NationalSite objects
+    Returns
+    -------
+    None
+    '''
     for i,site in enumerate(sites):
         print(f'[{i+1}] {site.info()}')
     print('-----------------------------------------')
     return
 
 def print_state_info(state, sites):
+    ''' print state sites with header
+        and calls deatil_search()
+    Parameters
+    ----------
+    state: string
+        The state to print header for
+    sites: list
+        A list of NationalSite objects
+    Returns
+    -------
+    None
+    '''
     print_header(state)
     print_sites(sites)
     detail_search(sites)
     return
 
 def print_nearby_sites(results_json):
+    ''' print nearby sites of a zipcode
+
+    Parameters
+    ----------
+    results_json: dict
+        dict of search results
+
+    Returns
+    -------
+    None
+    '''
 
     sites = results_json['searchResults']
     here = results_json['origin']['postalCode']
@@ -344,6 +385,17 @@ List of nearby sites to {here}
     return
 
 def ask():
+    ''' asks user for an input of state and
+        get sites for valid state
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    '''
     user_state = input('Enter a state name (e.g. Michigan, michigan) or "exit": ')
     state = user_state.lower().strip()
     if user_state == 'exit':
@@ -360,6 +412,20 @@ def ask():
         return
 
 def retrieve_site_instance(index, sites):
+    ''' asks user for an input of state and
+        get sites for valid state
+
+    Parameters
+    ----------
+    index: string
+        user input
+    sites: list
+        a list of NationalSite object
+
+    Returns
+    -------
+    None
+    '''
     total = len(sites)
     try:
         i = int(index) - 1
@@ -376,6 +442,18 @@ def retrieve_site_instance(index, sites):
         return
 
 def detail_search(sites):
+    ''' asks user for an input of site index and
+        retrieves nearby sites
+
+    Parameters
+    ----------
+    sites: list
+        a list of NationalSite object
+
+    Returns
+    -------
+    None
+    '''
     index = input('Choose the number for detail search or "exit" or "back": ')
     index = index.lower().strip()
     if index == 'exit':
